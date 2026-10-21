@@ -85,7 +85,7 @@ class _CategoriesScreenState extends ConsumerState<CategoriesScreen> {
       body: categoriesAsync.when(
         loading: () => const Center(
             child: CircularProgressIndicator(color: AppColors.primary)),
-        error: (_, __) => _buildBody(_defaultCategories, isDark),
+        error: (e, _) => _buildBody(_defaultCategories, isDark),
         data: (categories) {
           final list = categories.isNotEmpty ? categories : _defaultCategories;
           return _buildBody(list, isDark);

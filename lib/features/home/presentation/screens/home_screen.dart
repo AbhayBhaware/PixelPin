@@ -244,7 +244,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 
 class _WallpaperMasonryGrid extends StatelessWidget {
   final Stream<List<WallpaperModel>> stream;
-  const _WallpaperMasonryGrid({required this.stream});
+  const _WallpaperMasonryGrid({super.key, required this.stream});
 
   @override
   Widget build(BuildContext context) {

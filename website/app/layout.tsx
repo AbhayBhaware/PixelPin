@@ -14,37 +14,36 @@ const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
   display: "swap",
-  weight: ["400", "500", "600"],
+  weight: ["400", "500", "600", "700"],
 });
 
 export const metadata: Metadata = {
   title: {
-    default: "Wall My Paper — Premium 4K Wallpapers & Backgrounds",
-    template: "%s | Wall My Paper",
+    default: "PixelPin — Curated 4K & HD Wallpapers for Android",
+    template: "%s | PixelPin",
   },
   description:
     "Your screen, your story. Discover, preview in realistic phone frames, and download stunning 4K and AMOLED wallpapers created by world-class digital artists.",
   keywords: [
+    "PixelPin",
     "wallpapers",
     "4K wallpapers",
     "AMOLED wallpapers",
     "free wallpapers",
     "phone backgrounds",
-    "iPhone wallpapers",
     "Android wallpapers",
-    "Wall My Paper",
-    "WMP",
+    "HD wallpapers",
   ],
   openGraph: {
-    title: "Wall My Paper — Premium 4K Wallpapers",
+    title: "PixelPin — Curated 4K Wallpapers for Android",
     description: "Your screen, your story. Discover & download stunning 4K wallpapers.",
     type: "website",
     locale: "en_US",
-    siteName: "Wall My Paper",
+    siteName: "PixelPin",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Wall My Paper — Premium 4K Wallpapers",
+    title: "PixelPin — Curated 4K Wallpapers",
     description: "Your screen, your story. Discover & download stunning 4K wallpapers.",
   },
   robots: {
@@ -66,11 +65,13 @@ export default function RootLayout({
           position="bottom-center"
           toastOptions={{
             style: {
-              background: "var(--color-surface-2)",
-              color: "var(--color-text)",
-              border: "1px solid var(--color-border)",
+              background: "#FFFFFF",
+              color: "#0F172A",
+              border: "1px solid #E2E8F0",
               borderRadius: "14px",
-              boxShadow: "0 10px 30px rgba(0, 0, 0, 0.4)",
+              boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.05)",
+              fontWeight: 500,
+              fontSize: "14px",
             },
           }}
         />
@@ -78,3 +79,4 @@ export default function RootLayout({
     </html>
   );
 }
+
