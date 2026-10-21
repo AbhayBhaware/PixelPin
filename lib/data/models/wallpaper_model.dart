@@ -64,20 +64,29 @@ class WallpaperStats with _$WallpaperStats {
 }
 
 extension WallpaperModelX on WallpaperModel {
-  /// Get Cloudinary thumb URL with auto format and width optimization
+  /// Get optimized thumb URL for fast masonry loading
   String get optimizedThumbUrl {
-    return imageUrl.replaceFirst(
-      '/upload/',
-      '/upload/f_auto,q_auto,w_400/',
-    );
+    if (thumbUrl.isNotEmpty && !thumbUrl.contains('/upload/')) {
+      return thumbUrl;
+    }
+    if (imageUrl.contains('/upload/')) {
+      return imageUrl.replaceFirst(
+        '/upload/',
+        '/upload/f_auto,q_auto,w_400/',
+      );
+    }
+    return thumbUrl.isNotEmpty ? thumbUrl : imageUrl;
   }
 
-  /// Get Cloudinary preview URL (1080px wide)
+  /// Get optimized preview URL (1080px wide or high-res)
   String get optimizedPreviewUrl {
-    return imageUrl.replaceFirst(
-      '/upload/',
-      '/upload/f_auto,q_auto,w_1080/',
-    );
+    if (imageUrl.contains('/upload/')) {
+      return imageUrl.replaceFirst(
+        '/upload/',
+        '/upload/f_auto,q_auto,w_1080/',
+      );
+    }
+    return imageUrl;
   }
 
   /// Check if wallpaper is portrait (standard phone wallpaper)

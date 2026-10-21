@@ -68,17 +68,24 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
     return Scaffold(
-      backgroundColor: AppColors.bgDark,
+      backgroundColor: isDark ? AppColors.bgDark : Colors.white,
       body: Container(
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
           gradient: RadialGradient(
             center: Alignment.center,
             radius: 1.2,
-            colors: [
-              Color(0xFF1A0A3D),
-              AppColors.bgDark,
-            ],
+            colors: isDark
+                ? const [
+                    Color(0xFF1A0A3D),
+                    AppColors.bgDark,
+                  ]
+                : const [
+                    Color(0xFFFFFFFF),
+                    Color(0xFFF4F6FB),
+                  ],
           ),
         ),
         child: Center(
@@ -98,10 +105,10 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
                   );
                 },
                 child: Container(
-                  width: 100,
-                  height: 100,
+                  width: 104,
+                  height: 104,
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(28),
+                    borderRadius: BorderRadius.circular(30),
                     gradient: const LinearGradient(
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
@@ -109,20 +116,21 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
                     ),
                     boxShadow: [
                       BoxShadow(
-                        color: AppColors.primary.withValues(alpha: 0.5),
-                        blurRadius: 40,
-                        spreadRadius: 4,
+                        color: AppColors.primary.withValues(alpha: 0.35),
+                        blurRadius: 36,
+                        spreadRadius: 2,
+                        offset: const Offset(0, 8),
                       ),
                     ],
                   ),
                   child: const Icon(
                     Icons.landscape_rounded,
                     color: Colors.white,
-                    size: 52,
+                    size: 54,
                   ),
                 ),
               ),
-              const SizedBox(height: 28),
+              const SizedBox(height: 32),
 
               // App name animation
               AnimatedBuilder(
@@ -146,18 +154,19 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
                         'Wall My Paper',
                         style: TextStyle(
                           fontSize: 38,
-                          fontWeight: FontWeight.w700,
+                          fontWeight: FontWeight.w800,
                           color: Colors.white,
                           letterSpacing: -1,
                         ),
                       ),
                     ),
-                    const SizedBox(height: 8),
+                    const SizedBox(height: 10),
                     Text(
                       'Your screen, your story.',
                       style: TextStyle(
                         fontSize: 14,
-                        color: AppColors.textSecondary,
+                        fontWeight: FontWeight.w500,
+                        color: isDark ? AppColors.textSecondary : AppColors.textLightSecondary,
                         letterSpacing: 0.3,
                       ),
                     ),

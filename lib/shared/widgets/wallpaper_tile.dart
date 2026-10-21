@@ -72,6 +72,7 @@ class _WallpaperTileState extends State<WallpaperTile> with SingleTickerProvider
   @override
   Widget build(BuildContext context) {
     final wallpaper = widget.wallpaper;
+    final isDark = Theme.of(context).brightness == Brightness.dark;
 
     return AspectRatio(
       aspectRatio: wallpaper.aspectRatio.clamp(0.55, 1.3),
@@ -93,11 +94,15 @@ class _WallpaperTileState extends State<WallpaperTile> with SingleTickerProvider
           child: Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(16),
+              border: Border.all(
+                color: isDark ? Colors.white.withValues(alpha: 0.08) : const Color(0xFFE5E7EB),
+                width: 0.8,
+              ),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black.withValues(alpha: 0.25),
-                  blurRadius: 10,
-                  offset: const Offset(0, 4),
+                  color: Colors.black.withValues(alpha: isDark ? 0.35 : 0.07),
+                  blurRadius: isDark ? 10 : 8,
+                  offset: const Offset(0, 3),
                 ),
               ],
             ),
@@ -112,17 +117,17 @@ class _WallpaperTileState extends State<WallpaperTile> with SingleTickerProvider
                     fit: BoxFit.cover,
                     placeholder: (context, url) {
                       return Shimmer.fromColors(
-                        baseColor: AppColors.surfaceDark,
-                        highlightColor: AppColors.surfaceElevatedDark,
-                        child: Container(color: AppColors.surfaceDark),
+                        baseColor: isDark ? AppColors.surfaceDark : const Color(0xFFEDF0F5),
+                        highlightColor: isDark ? AppColors.surfaceElevatedDark : const Color(0xFFFAFBFC),
+                        child: Container(color: isDark ? AppColors.surfaceDark : const Color(0xFFEDF0F5)),
                       );
                     },
                     errorWidget: (context, url, error) => Container(
-                      color: AppColors.surfaceElevatedDark,
-                      child: const Center(
+                      color: isDark ? AppColors.surfaceElevatedDark : const Color(0xFFF3F4F6),
+                      child: Center(
                         child: Icon(
                           Icons.broken_image_rounded,
-                          color: AppColors.textMutedDark,
+                          color: isDark ? AppColors.textMutedDark : AppColors.textLightMuted,
                           size: 32,
                         ),
                       ),

@@ -16,20 +16,22 @@ class AppColors {
   static const Color bgDarkCard = Color(0xFF1E1E28);     // surface-2
   static const Color bgDarkElevated = Color(0xFF2A2A36); // border
 
-  // ── Light Theme ────────────────────────────────────────────────────────────
-  static const Color bgLight = Color(0xFFFAFAFB);
-  static const Color bgLightSurface = Color(0xFFFFFFFF);
-  static const Color bgLightCard = Color(0xFFF1F1F5);    // surface-2
-  static const Color bgLightBorder = Color(0xFFE4E4EC);
+  // ── Light Theme (Fresh, Crisp White & Standard Clean UI) ───────────────────
+  static const Color bgLight = Color(0xFFFAFBFC);        // Pure fresh clean canvas
+  static const Color bgLightSurface = Color(0xFFFFFFFF); // Pure white cards & sheets
+  static const Color bgLightCard = Color(0xFFF3F4F6);    // Crisp surface-2 / pills
+  static const Color bgLightBorder = Color(0xFFE5E7EB);  // Subtle hairline border
+  static const Color bgLightElevated = Color(0xFFEDF0F5);
 
   // ── Text — Dark ────────────────────────────────────────────────────────────
   static const Color textPrimary = Color(0xFFF5F5F7);
   static const Color textSecondary = Color(0xFF9A9AAD);  // text-muted (dark)
   static const Color textMuted = Color(0xFF6B6B7D);      // even more muted
 
-  // ── Text — Light ───────────────────────────────────────────────────────────
-  static const Color textLightPrimary = Color(0xFF14141A);
-  static const Color textLightMuted = Color(0xFF6B6B7D);
+  // ── Text — Light (Ultra Sharp & Readable) ──────────────────────────────────
+  static const Color textLightPrimary = Color(0xFF0F172A);   // Rich Slate-900
+  static const Color textLightSecondary = Color(0xFF475569); // Slate-600
+  static const Color textLightMuted = Color(0xFF94A3B8);     // Slate-400
 
   // ── Status ─────────────────────────────────────────────────────────────────
   static const Color success = Color(0xFF2DD4A0);
@@ -70,6 +72,6 @@ class AppColors {
   static const Color surfaceElevatedLight = bgLightCard;
   static const Color borderLight = bgLightBorder;
   static const Color textPrimaryLight = textLightPrimary;
-  static const Color textSecondaryLight = textLightMuted;
+  static const Color textSecondaryLight = textLightSecondary;
   static const Color textMutedLight = textLightMuted;
 }

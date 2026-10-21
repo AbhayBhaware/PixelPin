@@ -43,12 +43,12 @@ class MainShell extends ConsumerWidget {
                   decoration: BoxDecoration(
                     color: isDark
                         ? AppColors.surfaceElevatedDark.withValues(alpha: 0.78)
-                        : AppColors.surfaceElevatedLight.withValues(alpha: 0.88),
+                        : Colors.white.withValues(alpha: 0.94),
                     borderRadius: BorderRadius.circular(32),
                     border: Border.all(
                       color: isDark
                           ? Colors.white.withValues(alpha: 0.12)
-                          : Colors.black.withValues(alpha: 0.08),
+                          : const Color(0xFFE5E7EB),
                       width: 1,
                     ),
                   ),

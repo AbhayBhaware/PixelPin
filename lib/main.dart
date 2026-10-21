@@ -6,6 +6,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:pixelpin/core/theme/app_theme.dart';
 import 'package:pixelpin/core/router/app_router.dart';
+import 'package:pixelpin/core/providers/theme_provider.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -47,13 +48,14 @@ class WallMyPaperApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final router = ref.watch(routerProvider);
+    final themeMode = ref.watch(themeModeProvider);
 
     return MaterialApp.router(
       title: 'Wall My Paper',
       debugShowCheckedModeBanner: false,
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
-      themeMode: ThemeMode.dark,
+      themeMode: themeMode,
       routerConfig: router,
     );
   }

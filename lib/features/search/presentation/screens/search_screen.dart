@@ -220,12 +220,19 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
             padding: const EdgeInsets.fromLTRB(16, 4, 16, 14),
             child: Container(
               decoration: BoxDecoration(
-                color: isDark ? AppColors.surfaceElevatedDark : AppColors.surfaceElevatedLight,
+                color: isDark ? AppColors.surfaceElevatedDark : Colors.white,
                 borderRadius: BorderRadius.circular(16),
                 border: Border.all(
-                  color: isDark ? AppColors.borderDark : AppColors.borderLight,
+                  color: isDark ? AppColors.borderDark : const Color(0xFFE5E7EB),
                   width: 1,
                 ),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withValues(alpha: isDark ? 0.2 : 0.04),
+                    blurRadius: 10,
+                    offset: const Offset(0, 3),
+                  ),
+                ],
               ),
               child: TextField(
                 controller: _controller,

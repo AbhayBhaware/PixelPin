@@ -216,11 +216,21 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 
             // Staggered Masonry Wallpaper Grid
             _WallpaperMasonryGrid(
+              key: ValueKey('$_selectedSection-$_selectedCategoryIndex'),
               stream: _selectedSection == 0
-                  ? repo.watchTrending(limit: 30)
+                  ? repo.watchTrending(
+                      limit: 30,
+                      category: _selectedCategoryIndex == 0 ? null : _categories[_selectedCategoryIndex],
+                    )
                   : _selectedSection == 1
-                      ? repo.watchFeatured(limit: 30)
-                      : repo.watchNew(limit: 30),
+                      ? repo.watchFeatured(
+                          limit: 30,
+                          category: _selectedCategoryIndex == 0 ? null : _categories[_selectedCategoryIndex],
+                        )
+                      : repo.watchNew(
+                          limit: 30,
+                          category: _selectedCategoryIndex == 0 ? null : _categories[_selectedCategoryIndex],
+                        ),
             ),
 
             // Bottom Spacing for Floating Glass Nav Bar

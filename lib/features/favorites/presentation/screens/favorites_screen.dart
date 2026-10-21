@@ -15,11 +15,13 @@ class FavoritesScreen extends ConsumerWidget {
     final favoriteIds = ref.watch(favoritesProvider);
     final repo = ref.read(wallpaperRepositoryProvider);
 
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
     return Scaffold(
-      backgroundColor: AppColors.bgDark,
+      backgroundColor: isDark ? AppColors.bgDark : AppColors.bgLight,
       appBar: AppBar(
         title: const Text('Favorites'),
-        backgroundColor: AppColors.bgDark,
+        backgroundColor: isDark ? AppColors.bgDark : AppColors.bgLight,
         actions: [
           if (favoriteIds.isNotEmpty)
             TextButton(
@@ -27,9 +29,10 @@ class FavoritesScreen extends ConsumerWidget {
                 final confirmed = await showDialog<bool>(
                   context: context,
                   builder: (_) => AlertDialog(
-                    backgroundColor: AppColors.bgDarkCard,
-                    title: const Text('Clear all favorites?',
-                        style: TextStyle(color: AppColors.textPrimary)),
+                    backgroundColor: isDark ? AppColors.bgDarkCard : AppColors.bgLightSurface,
+                    title: Text('Clear all favorites?',
+                        style: TextStyle(
+                            color: isDark ? AppColors.textPrimary : AppColors.textLightPrimary)),
                     actions: [
                       TextButton(
                           onPressed: () => Navigator.pop(context, false),
@@ -86,23 +89,28 @@ class FavoritesScreen extends ConsumerWidget {
   }
 
   Widget _buildEmpty(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Icon(Icons.favorite_outline_rounded,
-              color: AppColors.textMuted, size: 64),
+              color: isDark ? AppColors.textMutedDark : AppColors.textLightMuted, size: 64),
           const SizedBox(height: 16),
-          Text('No favorites yet',
-              style: Theme.of(context)
-                  .textTheme
-                  .titleMedium
-                  ?.copyWith(color: AppColors.textSecondary)),
+          Text(
+            'No favorites yet',
+            style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                  color: isDark ? AppColors.textPrimaryDark : AppColors.textLightPrimary,
+                  fontWeight: FontWeight.w700,
+                ),
+          ),
           const SizedBox(height: 8),
           Text(
             'Tap the heart on any wallpaper to save it here',
-            style: const TextStyle(
-                color: AppColors.textMuted, fontSize: 13),
+            style: TextStyle(
+              color: isDark ? AppColors.textSecondaryDark : AppColors.textLightSecondary,
+              fontSize: 13,
+            ),
             textAlign: TextAlign.center,
           ),
         ],
