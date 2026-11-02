@@ -2,16 +2,17 @@ class AppConstants {
   AppConstants._();
 
   // App Info
-  static const String appName = 'Wall My Paper';
-  static const String appShortName = 'WMP';
+  static const String appName = 'PixelPin';
+  static const String appShortName = 'PixelPin';
   static const String appTagline = 'Your screen, your story.';
   static const String appVersion = '1.0.0';
-  static const String appPackage = 'com.wallmypaper.app';
+  static const String appPackage = 'com.pixelpin.pixelpin';
 
   // Firestore Collections
   static const String wallpapersCollection = 'wallpapers';
   static const String usersCollection = 'users';
   static const String categoriesCollection = 'categories';
+  static const String creatorApplicationsCollection = 'creator_applications';
   static const String featuredCollection = 'featured';
   static const String dailyStatsCollection = 'dailyStats';
   static const String earningsCollection = 'earnings';

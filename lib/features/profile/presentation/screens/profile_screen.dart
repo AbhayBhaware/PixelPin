@@ -190,10 +190,10 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> with SingleTicker
                     const SizedBox(height: 16),
 
                     // Become a Creator OR Creator Studio Card
-                    if (!isCreator)
-                      _buildBecomeCreatorBanner(context)
+                    if (isCreator)
+                      _buildCreatorStudioBanner(context, isDark)
                     else
-                      _buildCreatorStudioBanner(context),
+                      _buildBecomeCreatorBanner(context, ref, isDark),
                   ],
                 ),
               ),
@@ -257,15 +257,84 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> with SingleTicker
     );
   }
 
-  Widget _buildBecomeCreatorBanner(BuildContext context) {
+  Widget _buildBecomeCreatorBanner(BuildContext context, WidgetRef ref, bool isDark) {
+    final applicationData = ref.watch(creatorApplicationProvider).value;
+    final isPending = applicationData?['status'] == 'pending';
+
+    if (isPending) {
+      return Container(
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(18),
+          color: isDark ? AppColors.surfaceElevatedDark : Colors.white,
+          border: Border.all(
+            color: AppColors.warning.withValues(alpha: 0.5),
+            width: 1.5,
+          ),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withValues(alpha: 0.04),
+              blurRadius: 10,
+              offset: const Offset(0, 4),
+            ),
+          ],
+        ),
+        child: Row(
+          children: [
+            Container(
+              padding: const EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                color: AppColors.warning.withValues(alpha: 0.15),
+                shape: BoxShape.circle,
+              ),
+              child: const Icon(Icons.hourglass_top_rounded, color: AppColors.warning, size: 22),
+            ),
+            const SizedBox(width: 12),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Creator Application Pending',
+                    style: GoogleFonts.sora(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w700,
+                      color: isDark ? AppColors.textPrimaryDark : AppColors.textPrimaryLight,
+                    ),
+                  ),
+                  const SizedBox(height: 2),
+                  Text(
+                    'Our curation team is reviewing your profile',
+                    style: GoogleFonts.inter(
+                      fontSize: 11,
+                      color: isDark ? AppColors.textSecondaryDark : AppColors.textSecondaryLight,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            WMPButton(
+              label: 'Status',
+              variant: WMPButtonVariant.secondary,
+              size: WMPButtonSize.small,
+              onPressed: () {
+                HapticFeedback.lightImpact();
+                context.push('/become-creator');
+              },
+            ),
+          ],
+        ),
+      );
+    }
+
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(18),
         gradient: LinearGradient(
           colors: [
-            AppColors.primary.withValues(alpha: 0.15),
-            AppColors.accent.withValues(alpha: 0.15),
+            AppColors.primary.withValues(alpha: isDark ? 0.2 : 0.12),
+            AppColors.accent.withValues(alpha: isDark ? 0.2 : 0.12),
           ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
@@ -284,14 +353,22 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> with SingleTicker
               const SizedBox(width: 8),
               Text(
                 'Are you a wallpaper artist?',
-                style: GoogleFonts.sora(fontSize: 14, fontWeight: FontWeight.w700, color: Colors.white),
+                style: GoogleFonts.sora(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w700,
+                  color: isDark ? AppColors.textPrimaryDark : AppColors.textPrimaryLight,
+                ),
               ),
             ],
           ),
           const SizedBox(height: 6),
           Text(
             'Upload your 4K creations, build a loyal following, and earn 70% revenue share from wallpaper downloads.',
-            style: GoogleFonts.inter(fontSize: 12, color: Colors.white70, height: 1.4),
+            style: GoogleFonts.inter(
+              fontSize: 12,
+              color: isDark ? AppColors.textSecondaryDark : AppColors.textSecondaryLight,
+              height: 1.4,
+            ),
           ),
           const SizedBox(height: 12),
           WMPButton(
@@ -307,13 +384,20 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> with SingleTicker
     );
   }
 
-  Widget _buildCreatorStudioBanner(BuildContext context) {
+  Widget _buildCreatorStudioBanner(BuildContext context, bool isDark) {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(18),
-        color: AppColors.surfaceElevatedDark,
+        color: isDark ? AppColors.surfaceElevatedDark : Colors.white,
         border: Border.all(color: AppColors.primary.withValues(alpha: 0.4), width: 1.5),
+        boxShadow: [
+          BoxShadow(
+            color: AppColors.primary.withValues(alpha: 0.08),
+            blurRadius: 12,
+            offset: const Offset(0, 4),
+          ),
+        ],
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -321,14 +405,41 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> with SingleTicker
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                'Creator Studio',
-                style: GoogleFonts.sora(fontSize: 15, fontWeight: FontWeight.w700, color: Colors.white),
+              Row(
+                children: [
+                  Text(
+                    'Creator Studio',
+                    style: GoogleFonts.sora(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w700,
+                      color: isDark ? AppColors.textPrimaryDark : AppColors.textPrimaryLight,
+                    ),
+                  ),
+                  const SizedBox(width: 6),
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 1.5),
+                    decoration: BoxDecoration(
+                      color: AppColors.primary.withValues(alpha: 0.15),
+                      borderRadius: BorderRadius.circular(6),
+                    ),
+                    child: Text(
+                      'PRO',
+                      style: GoogleFonts.sora(
+                        fontSize: 9,
+                        fontWeight: FontWeight.w800,
+                        color: AppColors.primary,
+                      ),
+                    ),
+                  ),
+                ],
               ),
               const SizedBox(height: 3),
               Text(
                 'Manage uploads, review queue, and stats',
-                style: GoogleFonts.inter(fontSize: 11, color: Colors.white60),
+                style: GoogleFonts.inter(
+                  fontSize: 11,
+                  color: isDark ? AppColors.textSecondaryDark : AppColors.textSecondaryLight,
+                ),
               ),
             ],
           ),

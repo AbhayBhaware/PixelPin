@@ -8,6 +8,8 @@ import 'package:pixelpin/features/profile/presentation/screens/profile_screen.da
 import 'package:pixelpin/features/wallpaper_detail/presentation/screens/wallpaper_detail_screen.dart';
 import 'package:pixelpin/features/favorites/presentation/screens/favorites_screen.dart';
 import 'package:pixelpin/features/settings/presentation/screens/settings_screen.dart';
+import 'package:pixelpin/features/creator/presentation/screens/become_creator_screen.dart';
+import 'package:pixelpin/features/creator/presentation/screens/creator_studio_screen.dart';
 import 'package:pixelpin/shared/widgets/main_shell.dart';
 
 final routerProvider = Provider<GoRouter>((ref) {
@@ -80,6 +82,16 @@ final routerProvider = Provider<GoRouter>((ref) {
         path: '/settings',
         name: 'settings',
         builder: (context, state) => const SettingsScreen(),
+      ),
+      GoRoute(
+        path: '/become-creator',
+        name: 'becomeCreator',
+        builder: (context, state) => const BecomeCreatorScreen(),
+      ),
+      GoRoute(
+        path: '/creator/studio',
+        name: 'creatorStudio',
+        builder: (context, state) => const CreatorStudioScreen(),
       ),
     ],
   );
