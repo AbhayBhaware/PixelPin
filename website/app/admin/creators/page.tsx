@@ -35,6 +35,7 @@ export default function AdminCreatorsPage() {
   const [rejectReason, setRejectReason] = useState<Record<string, string>>({});
   const [manualUserId, setManualUserId] = useState("");
   const [manualEmail, setManualEmail] = useState("");
+  const [dbError, setDbError] = useState<string | null>(null);
 
   const fetchApplications = async () => {
     setLoading(true);
@@ -46,6 +47,7 @@ export default function AdminCreatorsPage() {
         list.push({ id: d.id, ...d.data() } as CreatorApp);
       });
       setApplications(list);
+      setDbError(null);
     } catch (err: any) {
       console.warn("Error fetching applications:", err);
       // Fallback query without orderBy if index not created
@@ -56,11 +58,52 @@ export default function AdminCreatorsPage() {
           list.push({ id: d.id, ...d.data() } as CreatorApp);
         });
         setApplications(list);
-      } catch (e) {
+        setDbError(null);
+      } catch (e: any) {
         console.error(e);
+        const errMsg = e?.message || e?.code || String(e);
+        if (
+          errMsg.includes("disabled") ||
+          errMsg.includes("SERVICE_DISABLED") ||
+          errMsg.includes("unavailable") ||
+          errMsg.includes("permission-denied") ||
+          errMsg.includes("PERMISSION_DENIED")
+        ) {
+          setDbError(
+            "Cloud Firestore database is not enabled yet in project 'pixelpin-92db0'. Please click 'Create database' under Firestore Database in the Firebase Console."
+          );
+        }
       }
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleCreateSample = async () => {
+    const sampleId = "sample_" + Date.now();
+    const sampleData: CreatorApp = {
+      id: sampleId,
+      userId: sampleId,
+      displayName: "Elena Vance (Sample Artist)",
+      email: "elena.art@pixelpin.app",
+      portfolioUrl: "https://instagram.com/elena_wallpapers",
+      bio: "Digital 3D landscape and minimalist dark AMOLED creator with 4+ years of experience.",
+      artStyle: "AMOLED & Minimal",
+      status: "pending",
+      appliedAt: new Date(),
+    };
+
+    try {
+      await setDoc(doc(db, "creator_applications", sampleId), {
+        ...sampleData,
+        appliedAt: serverTimestamp(),
+      });
+      toast.success("Sample creator application saved to Firestore!");
+      fetchApplications();
+    } catch (err) {
+      // If Firestore is not enabled yet in Firebase console, render in local state for instant review UI testing
+      setApplications((prev) => [sampleData, ...prev]);
+      toast.success("Sample application loaded locally for review workflow testing!");
     }
   };
 
@@ -223,13 +266,49 @@ export default function AdminCreatorsPage() {
           </p>
         </div>
 
-        <button
-          onClick={fetchApplications}
-          className="btn-secondary text-xs py-2 px-4 shadow-sm"
-        >
-          Refresh List
-        </button>
+        <div className="flex items-center gap-3">
+          <button
+            onClick={handleCreateSample}
+            className="btn-secondary text-xs py-2 px-3.5 bg-indigo-50 text-indigo-700 border-indigo-200 hover:bg-indigo-100 flex items-center gap-1.5"
+            title="Generate a sample mobile creator application for instant testing"
+          >
+            <span>+</span>
+            <span>Create Test Application</span>
+          </button>
+          <button
+            onClick={fetchApplications}
+            className="btn-secondary text-xs py-2 px-4 shadow-sm"
+          >
+            Refresh List
+          </button>
+        </div>
       </div>
+
+      {/* Firestore Setup Guidance Alert */}
+      {dbError && (
+        <div className="rounded-2xl p-5 bg-amber-50 border border-amber-200 text-amber-900 shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+          <div className="flex items-start gap-3">
+            <span className="text-2xl mt-0.5">⚠️</span>
+            <div>
+              <h4 className="font-heading font-bold text-sm text-amber-950">
+                Cloud Firestore Database is not enabled in Firebase Console
+              </h4>
+              <p className="text-xs text-amber-800 mt-1 max-w-2xl leading-relaxed">
+                Google Cloud reported that the Cloud Firestore API has not been activated for project <strong>pixelpin-92db0</strong>.
+                To receive live creator applications from the mobile app, go to your Firebase Console and click <strong>Create database</strong>.
+              </p>
+            </div>
+          </div>
+          <a
+            href="https://console.firebase.google.com/project/pixelpin-92db0/firestore"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-primary bg-amber-600 hover:bg-amber-700 text-white text-xs py-2.5 px-4 rounded-xl shrink-0"
+          >
+            Open Firestore Console ↗
+          </a>
+        </div>
+      )}
 
       {/* Filter Tabs */}
       <div className="flex items-center gap-2 border-b border-slate-200 pb-3 overflow-x-auto">
@@ -275,6 +354,12 @@ export default function AdminCreatorsPage() {
           <p className="text-xs text-slate-500 mt-1">
             When users tap &quot;Apply to Become a Creator&quot; in the mobile app, their applications appear here.
           </p>
+          <button
+            onClick={handleCreateSample}
+            className="mt-5 btn-primary text-xs py-2 px-4 shadow-sm"
+          >
+            + Generate Test Application
+          </button>
         </div>
       ) : (
         <div className="grid md:grid-cols-2 gap-6">

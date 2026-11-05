@@ -52,8 +52,11 @@ class _WallpaperDetailScreenState extends ConsumerState<WallpaperDetailScreen> {
               shape: BoxShape.circle,
               border: Border.all(color: Colors.white24, width: 0.5),
             ),
-            child: const Icon(Icons.arrow_back_ios_new_rounded,
-                color: Colors.white, size: 18),
+            child: const Icon(
+              Icons.arrow_back_ios_new_rounded,
+              color: Colors.white,
+              size: 18,
+            ),
           ),
         ),
         actions: [
@@ -93,11 +96,16 @@ class _WallpaperDetailScreenState extends ConsumerState<WallpaperDetailScreen> {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  const Icon(Icons.broken_image_rounded,
-                      color: Colors.white54, size: 48),
+                  const Icon(
+                    Icons.broken_image_rounded,
+                    color: Colors.white54,
+                    size: 48,
+                  ),
                   const SizedBox(height: 12),
-                  Text('Wallpaper not found',
-                      style: GoogleFonts.sora(color: Colors.white, fontSize: 16)),
+                  Text(
+                    'Wallpaper not found',
+                    style: GoogleFonts.sora(color: Colors.white, fontSize: 16),
+                  ),
                 ],
               ),
             );
@@ -226,11 +234,18 @@ class _WallpaperDetailScreenState extends ConsumerState<WallpaperDetailScreen> {
             backgroundColor: AppColors.surfaceElevatedDark,
             content: Row(
               children: [
-                const Icon(Icons.check_circle_rounded, color: AppColors.success, size: 20),
+                const Icon(
+                  Icons.check_circle_rounded,
+                  color: AppColors.success,
+                  size: 20,
+                ),
                 const SizedBox(width: 10),
                 Text(
                   'Saved 4K wallpaper to your gallery!',
-                  style: GoogleFonts.inter(color: Colors.white, fontWeight: FontWeight.w600),
+                  style: GoogleFonts.inter(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
               ],
             ),
@@ -242,7 +257,10 @@ class _WallpaperDetailScreenState extends ConsumerState<WallpaperDetailScreen> {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             backgroundColor: AppColors.danger,
-            content: Text('Download failed: $e', style: GoogleFonts.inter(color: Colors.white)),
+            content: Text(
+              'Download failed: $e',
+              style: GoogleFonts.inter(color: Colors.white),
+            ),
           ),
         );
       }
@@ -348,7 +366,10 @@ class _DetailBottomPanel extends ConsumerWidget {
                   // Badges
                   if (wallpaper.is4K)
                     Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 8,
+                        vertical: 4,
+                      ),
                       decoration: BoxDecoration(
                         color: AppColors.primary,
                         borderRadius: BorderRadius.circular(999),
@@ -371,9 +392,18 @@ class _DetailBottomPanel extends ConsumerWidget {
                 spacing: 8,
                 runSpacing: 6,
                 children: [
-                  _MetaPill(label: wallpaper.resolution, icon: Icons.aspect_ratio_rounded),
-                  _MetaPill(label: wallpaper.formattedSize, icon: Icons.folder_open_rounded),
-                  _MetaPill(label: wallpaper.category, icon: Icons.category_rounded),
+                  _MetaPill(
+                    label: wallpaper.resolution,
+                    icon: Icons.aspect_ratio_rounded,
+                  ),
+                  _MetaPill(
+                    label: wallpaper.formattedSize,
+                    icon: Icons.folder_open_rounded,
+                  ),
+                  _MetaPill(
+                    label: wallpaper.category,
+                    icon: Icons.category_rounded,
+                  ),
                 ],
               ),
               const SizedBox(height: 16),
@@ -452,14 +482,20 @@ class _QualityPickerSheet extends StatelessWidget {
         'title': 'Quad HD 2K',
         'resolution': '1440×2560',
         'size': '~2.4 MB',
-        'url': wallpaper.imageUrl.replaceFirst('/upload/', '/upload/w_1440,q_auto/'),
+        'url': wallpaper.imageUrl.replaceFirst(
+          '/upload/',
+          '/upload/w_1440,q_auto/',
+        ),
         'badge': 'Fast',
       },
       {
         'title': 'Full HD 1080p',
         'resolution': '1080×1920',
         'size': '~1.2 MB',
-        'url': wallpaper.imageUrl.replaceFirst('/upload/', '/upload/w_1080,q_auto/'),
+        'url': wallpaper.imageUrl.replaceFirst(
+          '/upload/',
+          '/upload/w_1080,q_auto/',
+        ),
         'badge': 'Data Saver',
       },
     ];
@@ -514,7 +550,10 @@ class _QualityPickerSheet extends StatelessWidget {
               ),
               child: ListTile(
                 onTap: () => onQualitySelected(opt['url']!),
-                contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
+                contentPadding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 6,
+                ),
                 title: Row(
                   children: [
                     Text(
@@ -527,7 +566,10 @@ class _QualityPickerSheet extends StatelessWidget {
                     ),
                     const SizedBox(width: 8),
                     Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 6,
+                        vertical: 2,
+                      ),
                       decoration: BoxDecoration(
                         color: AppColors.primary.withValues(alpha: 0.18),
                         borderRadius: BorderRadius.circular(6),
@@ -547,7 +589,10 @@ class _QualityPickerSheet extends StatelessWidget {
                   '${opt['resolution']} • ${opt['size']}',
                   style: GoogleFonts.inter(color: Colors.white54, fontSize: 12),
                 ),
-                trailing: const Icon(Icons.download_rounded, color: Colors.white70),
+                trailing: const Icon(
+                  Icons.download_rounded,
+                  color: Colors.white70,
+                ),
               ),
             );
           }),
@@ -570,7 +615,10 @@ class _MetaPill extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white.withValues(alpha: 0.12),
         borderRadius: BorderRadius.circular(999),
-        border: Border.all(color: Colors.white.withValues(alpha: 0.15), width: 0.5),
+        border: Border.all(
+          color: Colors.white.withValues(alpha: 0.15),
+          width: 0.5,
+        ),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
@@ -579,7 +627,11 @@ class _MetaPill extends StatelessWidget {
           const SizedBox(width: 5),
           Text(
             label,
-            style: GoogleFonts.inter(color: Colors.white, fontSize: 11, fontWeight: FontWeight.w500),
+            style: GoogleFonts.inter(
+              color: Colors.white,
+              fontSize: 11,
+              fontWeight: FontWeight.w500,
+            ),
           ),
         ],
       ),
@@ -610,11 +662,12 @@ class _IconButtonCircle extends StatelessWidget {
         decoration: BoxDecoration(
           color: Colors.white.withValues(alpha: 0.12),
           shape: BoxShape.circle,
-          border: Border.all(color: Colors.white.withValues(alpha: 0.2), width: 0.8),
+          border: Border.all(
+            color: Colors.white.withValues(alpha: 0.2),
+            width: 0.8,
+          ),
         ),
-        child: Center(
-          child: Icon(icon, color: color, size: 20),
-        ),
+        child: Center(child: Icon(icon, color: color, size: 20)),
       ),
     );
   }

@@ -34,27 +34,31 @@ class AuthService {
       final User? user = userCredential.user;
 
       if (user != null) {
-        // Ensure user document exists in Firestore
-        final userDocRef = _firestore.collection(AppConstants.usersCollection).doc(user.uid);
-        final doc = await userDocRef.get();
+        try {
+          // Ensure user document exists in Firestore
+          final userDocRef = _firestore.collection(AppConstants.usersCollection).doc(user.uid);
+          final doc = await userDocRef.get();
 
-        if (!doc.exists) {
-          await userDocRef.set({
-            'uid': user.uid,
-            'email': user.email,
-            'displayName': user.displayName ?? 'Wallpaper Artist',
-            'photoUrl': user.photoURL,
-            'role': 'viewer',
-            'creatorApplicationStatus': 'none',
-            'createdAt': FieldValue.serverTimestamp(),
-            'lastLoginAt': FieldValue.serverTimestamp(),
-          });
-        } else {
-          await userDocRef.update({
-            'lastLoginAt': FieldValue.serverTimestamp(),
-            if (user.photoURL != null) 'photoUrl': user.photoURL,
-            if (user.displayName != null) 'displayName': user.displayName,
-          });
+          if (!doc.exists) {
+            await userDocRef.set({
+              'uid': user.uid,
+              'email': user.email,
+              'displayName': user.displayName ?? 'Wallpaper Artist',
+              'photoUrl': user.photoURL,
+              'role': 'viewer',
+              'creatorApplicationStatus': 'none',
+              'createdAt': FieldValue.serverTimestamp(),
+              'lastLoginAt': FieldValue.serverTimestamp(),
+            });
+          } else {
+            await userDocRef.update({
+              'lastLoginAt': FieldValue.serverTimestamp(),
+              if (user.photoURL != null) 'photoUrl': user.photoURL,
+              if (user.displayName != null) 'displayName': user.displayName,
+            });
+          }
+        } catch (firestoreError) {
+          debugPrint('Warning: Could not sync user document to Firestore: $firestoreError');
         }
       }
 

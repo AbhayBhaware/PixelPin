@@ -72,10 +72,14 @@ class _BecomeCreatorScreenState extends ConsumerState<BecomeCreatorScreen> {
       }
     } catch (e) {
       if (mounted) {
+        final errorStr = e.toString();
+        final friendlyMsg = errorStr.contains('unavailable')
+            ? 'Signed in! Note: Cloud Firestore database needs to be enabled in Firebase Console.'
+            : 'Sign in cancelled or failed: $e';
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Sign in cancelled or failed: $e'),
-            backgroundColor: AppColors.error,
+            content: Text(friendlyMsg),
+            backgroundColor: errorStr.contains('unavailable') ? AppColors.warning : AppColors.error,
           ),
         );
       }
@@ -117,10 +121,15 @@ class _BecomeCreatorScreenState extends ConsumerState<BecomeCreatorScreen> {
       }
     } catch (e) {
       if (mounted) {
+        final errorStr = e.toString();
+        final friendlyMsg = errorStr.contains('unavailable')
+            ? 'Firestore is not enabled yet in Firebase Console. Please click "Create database" in Cloud Firestore.'
+            : 'Error submitting application: $e';
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Error submitting application: $e'),
+            content: Text(friendlyMsg),
             backgroundColor: AppColors.error,
+            duration: const Duration(seconds: 5),
           ),
         );
       }
