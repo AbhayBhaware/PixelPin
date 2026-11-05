@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pixelpin/core/theme/app_colors.dart';
@@ -93,7 +94,7 @@ class SettingsScreen extends ConsumerWidget {
             icon: Icons.upload_outlined,
             title: 'Become a Creator',
             subtitle: 'Upload wallpapers and share your art with the world',
-            onTap: () => context.pushNamed('become-creator'),
+            onTap: () => context.push('/become-creator'),
           ),
 
           const SizedBox(height: 36),
