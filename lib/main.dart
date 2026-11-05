@@ -37,13 +37,13 @@ void main() async {
 
   runApp(
     const ProviderScope(
-      child: WallMyPaperApp(),
+      child: PixelPinApp(),
     ),
   );
 }
 
-class WallMyPaperApp extends ConsumerWidget {
-  const WallMyPaperApp({super.key});
+class PixelPinApp extends ConsumerWidget {
+  const PixelPinApp({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -51,7 +51,7 @@ class WallMyPaperApp extends ConsumerWidget {
     final themeMode = ref.watch(themeModeProvider);
 
     return MaterialApp.router(
-      title: 'Wall My Paper',
+      title: 'PixelPin',
       debugShowCheckedModeBanner: false,
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,

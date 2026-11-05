@@ -17,3 +17,4 @@ Structured software engineering workflows:
 - `systematic-debugging`: Investigate root causes systematically before modifying code.
 - `test-driven-development`: Ensure critical business logic is validated and covered.
 - `verification-before-completion`: Verify end-to-end functionality across web and mobile before concluding tasks.
+

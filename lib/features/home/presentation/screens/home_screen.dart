@@ -84,7 +84,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                   ),
                   const SizedBox(width: 10),
                   Text(
-                    'Wall My Paper',
+                    'PixelPin',
                     style: GoogleFonts.sora(
                       fontSize: 20,
                       fontWeight: FontWeight.w700,

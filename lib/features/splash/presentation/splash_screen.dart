@@ -151,7 +151,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
                         colors: AppColors.heroGradient,
                       ).createShader(bounds),
                       child: const Text(
-                        'Wall My Paper',
+                        'PixelPin',
                         style: TextStyle(
                           fontSize: 38,
                           fontWeight: FontWeight.w800,

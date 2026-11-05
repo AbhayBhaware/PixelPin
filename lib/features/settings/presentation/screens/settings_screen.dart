@@ -68,23 +68,23 @@ class SettingsScreen extends ConsumerWidget {
           _SettingsTile(
             icon: Icons.privacy_tip_outlined,
             title: 'Privacy Policy',
-            onTap: () => _openUrl('https://wallmypaper.app/privacy'),
+            onTap: () => _openUrl('https://pixelpin.app/privacy'),
           ),
           _SettingsTile(
             icon: Icons.article_outlined,
             title: 'Terms of Service',
-            onTap: () => _openUrl('https://wallmypaper.app/terms'),
+            onTap: () => _openUrl('https://pixelpin.app/terms'),
           ),
           _SettingsTile(
             icon: Icons.copyright_rounded,
             title: 'DMCA / Takedown',
-            onTap: () => _openUrl('https://wallmypaper.app/dmca'),
+            onTap: () => _openUrl('https://pixelpin.app/dmca'),
           ),
           _SettingsTile(
             icon: Icons.mail_outline_rounded,
             title: 'Contact / Support',
-            subtitle: 'support@wallmypaper.app',
-            onTap: () => _openUrl('mailto:support@wallmypaper.app'),
+            subtitle: 'support@pixelpin.app',
+            onTap: () => _openUrl('mailto:support@pixelpin.app'),
           ),
           const SizedBox(height: 24),
 
@@ -92,14 +92,14 @@ class SettingsScreen extends ConsumerWidget {
           _SettingsTile(
             icon: Icons.upload_outlined,
             title: 'Become a Creator',
-            subtitle: 'Upload wallpapers and earn revenue share',
-            onTap: () => _openUrl('https://wallmypaper.app/become-creator'),
+            subtitle: 'Upload wallpapers and share your art with the world',
+            onTap: () => context.pushNamed('become-creator'),
           ),
 
           const SizedBox(height: 36),
           Center(
             child: Text(
-              'Wall My Paper • Clean & Fresh 4K Wallpapers',
+              'PixelPin • Curated 4K & HD Wallpapers',
               style: TextStyle(
                 color: isDark ? AppColors.textMutedDark : AppColors.textLightMuted,
                 fontSize: 12,

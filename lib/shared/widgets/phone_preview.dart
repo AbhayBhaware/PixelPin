@@ -308,7 +308,7 @@ class _PhonePreviewModalState extends State<PhonePreviewModal> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'Wall My Paper',
+                            'PixelPin',
                             style: GoogleFonts.sora(
                               color: Colors.white,
                               fontSize: 11,

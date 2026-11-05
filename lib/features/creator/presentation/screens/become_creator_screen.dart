@@ -688,3 +688,4 @@ class _BecomeCreatorScreenState extends ConsumerState<BecomeCreatorScreen> {
     );
   }
 }
+

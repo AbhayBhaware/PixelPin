@@ -254,7 +254,7 @@ class _WallpaperDetailScreenState extends ConsumerState<WallpaperDetailScreen> {
   Future<void> _share(WallpaperModel wallpaper) async {
     HapticFeedback.lightImpact();
     await Share.share(
-      'Check out "${wallpaper.title}" on Wall My Paper!\nhttps://wallmypaper.app/w/${wallpaper.id}',
+      'Check out "${wallpaper.title}" on PixelPin!\nhttps://pixelpin.app/w/${wallpaper.id}',
       subject: wallpaper.title,
     );
     await ref
